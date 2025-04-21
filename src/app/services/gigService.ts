@@ -3,7 +3,7 @@ import { Gig } from "@/types/gig";
 const fetchGigs = async (currentPage: number) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/gigs?page=${currentPage}`
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/gigs?page=${currentPage}`
     );
 
     const data = await res.json();
