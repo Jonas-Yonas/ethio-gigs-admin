@@ -155,7 +155,6 @@ const GigsPage = () => {
       </button>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        <h2>Oops ........</h2>
         {filteredGigs.map((gig) => (
           <GigCard
             key={gig._id}

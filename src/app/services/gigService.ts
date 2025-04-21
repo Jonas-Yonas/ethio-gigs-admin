@@ -3,7 +3,7 @@ import { Gig } from "@/types/gig";
 const fetchGigs = async (currentPage: number) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/gigs?page=${currentPage}`
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/gigs?page=${currentPage}`
     );
 
     const data = await res.json();
@@ -21,7 +21,7 @@ export const createGig = async (data: {
   username: string;
   telegramId: string;
 }): Promise<Gig> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gigs`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/gigs`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -43,9 +43,8 @@ export const updateGig = async (data: {
   username: string;
   telegramId: string;
 }): Promise<Gig> => {
-  console.log(data);
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/gigs/${data.gigId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/gigs/${data.gigId}`,
     {
       method: "PUT",
       headers: {
@@ -62,9 +61,12 @@ export const updateGig = async (data: {
 
 export const fetchGigById = async (id: string): Promise<Gig | null> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gigs/${id}`, {
-      cache: "no-store", // prevent stale data
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/gigs/${id}`,
+      {
+        cache: "no-store", // prevent stale data
+      }
+    );
 
     if (!res.ok) {
       console.error("❌ Failed to fetch gig:", res.statusText);
@@ -80,15 +82,18 @@ export const fetchGigById = async (id: string): Promise<Gig | null> => {
 };
 
 export const deleteGig = async (gigId: string): Promise<boolean> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gigs/${gigId}`, {
-    method: "DELETE",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/gigs/${gigId}`,
+    {
+      method: "DELETE",
+    }
+  );
   return res.ok;
 };
 
 const closeGig = async (gigId: string) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/gigs/${gigId}/close`,
+    `${process.env.NEXT_PUBLIC_API_URL}/admin/gigs/${gigId}/close`,
     { method: "PATCH" }
   );
   return res.ok;
