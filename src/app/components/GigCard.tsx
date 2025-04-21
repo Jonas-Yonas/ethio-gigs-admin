@@ -1,4 +1,4 @@
-// import Link from "next/link";
+import Link from "next/link";
 
 type Gig = {
   _id: string;
@@ -21,11 +21,11 @@ const GigCard = ({
 }) => {
   return (
     <div className="bg-white shadow-md rounded-2xl p-5 border border-gray-200">
-      {/* <Link href={`/admin/gigs/${gig._id}`}>
+      <Link href={`/admin/gigs/${gig._id}`}>
         <h2 className="text-lg font-semibold text-blue-600 hover:underline">
           {gig.title}
         </h2>
-      </Link> */}
+      </Link>
       <p className="text-gray-700 mt-2">{gig.description}</p>
       <p className="text-sm text-gray-500 mt-1">Category: {gig.category}</p>
       <p className="text-sm mt-1 text-gray-500">Status: {gig.status}</p>

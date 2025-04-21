@@ -125,7 +125,6 @@ const GigsPage = () => {
   };
 
   const openEditModal = (gig: Gig) => {
-    console.log(gig);
     setTitle(gig.title);
     setDescription(gig.description);
     setEditingGig(gig);

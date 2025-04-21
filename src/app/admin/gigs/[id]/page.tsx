@@ -19,7 +19,6 @@ const GigDetailPage = (props: { params: Promise<{ id: string }> }) => {
       if (!id) return;
 
       const fetchedGig = await fetchGigById(id);
-      console.log(`Fetched gig:`, fetchedGig);
       setGig(fetchedGig!);
       setLoading(false);
     };
