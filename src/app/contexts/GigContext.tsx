@@ -14,6 +14,8 @@ type GigContextType = {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   categoryFilter: string;
   setCategoryFilter: React.Dispatch<React.SetStateAction<string>>;
+  moderationFilter: string;
+  setModerationFilter: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const GigContext = createContext<GigContextType | undefined>(undefined);
@@ -32,6 +34,7 @@ export const GigProvider = ({ children }: { children: ReactNode }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
+  const [moderationFilter, setModerationFilter] = useState("all");
 
   return (
     <GigContext.Provider
@@ -46,6 +49,8 @@ export const GigProvider = ({ children }: { children: ReactNode }) => {
         setSearchTerm,
         categoryFilter,
         setCategoryFilter,
+        moderationFilter,
+        setModerationFilter,
       }}
     >
       {children}

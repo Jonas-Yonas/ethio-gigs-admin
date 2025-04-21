@@ -1,35 +1,38 @@
 "use client";
 
+import Spinner from "@/app/components/Spinner";
 import { fetchGigById } from "@/app/services/gigService";
 import { Gig } from "@/types/gig";
 import { CATEGORIES } from "@/utils/constants";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { QRCodeCanvas } from "qrcode.react";
-import { use, useEffect, useState } from "react";
+import { use } from "react";
 
-const GigDetailPage = (props: { params: Promise<{ id: string }> }) => {
+const GigDetailPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
-  const { id } = use(props.params);
+  const { id } = use(params); // Unwrap the Promise to access the id
 
-  const [gig, setGig] = useState<Gig>();
-  const [loading, setLoading] = useState(true);
+  const { data, isLoading, isError } = useQuery<Gig | null, Error>({
+    queryKey: ["gigDetails", id],
+    queryFn: async () => {
+      const gig = await fetchGigById(id); // This might return null
+      if (!gig) throw new Error("Gig not found");
+      return gig;
+    },
+    enabled: !!id, // Only run the query if gigId is available
+  });
 
-  useEffect(() => {
-    const getGig = async () => {
-      if (!id) return;
+  // Loading or error state
+  if (isLoading) return <Spinner />;
+  if (isError)
+    return (
+      <p className="text-center text-red-600">❌ Failed to load gig details.</p>
+    );
 
-      const fetchedGig = await fetchGigById(id);
-      setGig(fetchedGig!);
-      setLoading(false);
-    };
+  if (!data) return <div className="p-4 text-red-500">Gig not found.</div>;
 
-    getGig();
-  }, [id]);
-
-  if (loading)
-    return <div className="p-4 text-gray-600">Loading gig details...</div>;
-  if (!gig) return <div className="p-4 text-red-500">Gig not found.</div>;
-
+  const gig = data;
   const category = CATEGORIES.find((c) => c.value === gig.category);
 
   const gigLink = `${window.location.origin}/gigs/${id}`; // Create a unique URL for the gig

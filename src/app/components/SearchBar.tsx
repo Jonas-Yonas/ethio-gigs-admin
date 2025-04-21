@@ -1,15 +1,19 @@
-import { CATEGORIES } from "@/utils/constants";
+import { CATEGORIES, MODERATION } from "@/utils/constants";
 
 const SearchBar = ({
   searchTerm,
   setSearchTerm,
   categoryFilter,
   setCategoryFilter,
+  moderationFilter,
+  setModerationFilter,
 }: {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   categoryFilter: string;
   setCategoryFilter: React.Dispatch<React.SetStateAction<string>>;
+  moderationFilter: string;
+  setModerationFilter: React.Dispatch<React.SetStateAction<string>>;
   gigs: { category: string }[];
 }) => {
   return (
@@ -21,19 +25,52 @@ const SearchBar = ({
         onChange={(e) => setSearchTerm(e.target.value)}
         className="p-2 border border-gray-300 rounded-md w-full md:w-1/2"
       />
-      <select
-        value={categoryFilter}
-        onChange={(e) => setCategoryFilter(e.target.value)}
-        className="p-2 border border-gray-300 rounded-md w-full md:w-1/3"
-      >
-        <option value="">All Categories</option>
 
-        {CATEGORIES.map((cat) => (
-          <option key={cat.value} value={cat.value}>
-            {cat.icon} {cat.label}
-          </option>
-        ))}
-      </select>
+      <div className="flex items-center gap-2">
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+          className="p-2 border border-gray-300 rounded-md w-full"
+        >
+          <option value="">All Categories</option>
+
+          {CATEGORIES.map((cat) => (
+            <option key={cat.value} value={cat.value}>
+              {cat.icon} {cat.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <select
+          value={moderationFilter}
+          onChange={(e) => setModerationFilter(e.target.value)}
+          className="p-2 border border-gray-300 rounded-md w-full"
+        >
+          <option value="">All Moderation</option>
+
+          {MODERATION.map((mod) => (
+            <option key={mod.value} value={mod.value}>
+              {mod.icon} {mod.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* <div className="flex items-center gap-2">
+        <label className="text-sm font-medium">Moderation:</label>
+        <select
+          value={moderationFilter}
+          onChange={(e) => setModerationFilter(e.target.value)}
+          className="border border-gray-300 px-2 py-1 rounded"
+        >
+          <option value="all">All</option>
+          <option value="approved">Approved</option>
+          <option value="pending">Pending</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div> */}
     </div>
   );
 };
