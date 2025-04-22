@@ -18,5 +18,5 @@ export interface Gig {
   username: string;
   telegramId: string;
   views?: number;
-  moderationStatus: "pending" | "approved" | "rejected";
+  moderationStatus: "Pending" | "Approved" | "Rejected";
 }

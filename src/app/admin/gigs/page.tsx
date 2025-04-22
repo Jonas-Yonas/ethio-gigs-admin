@@ -2,6 +2,7 @@
 
 import GigCard from "@/app/components/GigCard";
 import GigFormModal from "@/app/components/GigFormModal";
+import { PaginationWithContext } from "@/app/components/Pagination";
 import SearchBar from "@/app/components/SearchBar";
 import Spinner from "@/app/components/Spinner";
 import { useGigContext } from "@/app/contexts/GigContext";
@@ -49,8 +50,8 @@ const GigsPage = () => {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const { data, isLoading, isError } = useQuery<GigsResponse, Error>({
-    queryKey: ["gigs", currentPage],
-    queryFn: () => fetchGigs(currentPage),
+    queryKey: ["gigs", currentPage, moderationFilter],
+    queryFn: () => fetchGigs(currentPage, moderationFilter),
     keepPreviousData: true,
   } as UseQueryOptions<GigsResponse, Error>);
 
@@ -61,23 +62,19 @@ const GigsPage = () => {
     }
   }, [data, setGigs, setTotalPages]);
 
-  // const filteredGigs = gigs.filter(
-  //   (gig) =>
-  //     gig.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-  //     (categoryFilter ? gig.category === categoryFilter : true)
-  // );
-
   const filteredGigs = gigs.filter((gig) => {
     const matchesSearch = gig.title
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
+
     const matchesCategory = categoryFilter
       ? gig.category === categoryFilter
       : true;
+
     const matchesModeration =
-      moderationFilter === "all"
-        ? true
-        : gig.moderationStatus === moderationFilter;
+      moderationFilter && moderationFilter !== "All"
+        ? gig.moderationStatus === moderationFilter
+        : true;
 
     return matchesSearch && matchesCategory && matchesModeration;
   });
@@ -243,6 +240,8 @@ const GigsPage = () => {
           />
         ))}
       </div>
+
+      <PaginationWithContext className="mt-8" maxVisiblePages={5} />
 
       {isModalOpen && (
         <GigFormModal
