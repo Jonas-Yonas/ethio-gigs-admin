@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import ReactQueryProvider from "@/app/providers/ReactQueryProvider";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import AuthProvider from "./providers/AuthProvider";
+import Navbar from "./components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,7 +20,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Ethio Gigs Bot",
-  description: "This is a mini gig posts page.",
+  description: "Find top talent or freelance opportunities",
 };
 
 export default function RootLayout({
@@ -36,7 +37,12 @@ export default function RootLayout({
           <ThemeProvider>
             <ReactQueryProvider>
               <Toaster position="top-right" />
-              <GigProvider>{children}</GigProvider>
+              <GigProvider>
+                {/* <Navbar />
+                {children} */}
+                <Navbar />
+                <main className="min-h-screen bg-gray-50">{children}</main>
+              </GigProvider>
             </ReactQueryProvider>
           </ThemeProvider>
         </AuthProvider>

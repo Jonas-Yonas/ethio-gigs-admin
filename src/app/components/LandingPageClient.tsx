@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { FaLightbulb, FaUserFriends, FaRocket } from "react-icons/fa";
-import ThemeToggle from "./ThemeToggle";
+// import ThemeToggle from "./ThemeToggle";
 import ChatbotWidget from "./ChatBot";
+// import Navbar from "./Navbar";
 
 export default function LandingPageClient() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Navbar */}
-      <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-md">
+      {/* <Navbar /> */}
+      {/* <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-md">
         <div className="text-2xl font-bold text-violet-700">EthioGigs</div>
         <div className="flex items-center space-x-4">
           <Link href="/auth/signin">
@@ -24,7 +26,7 @@ export default function LandingPageClient() {
           </Link>
           <ThemeToggle />
         </div>
-      </nav>
+      </nav> */}
 
       {/* Hero Section */}
       <header className="flex flex-col items-center justify-center flex-1 px-4 text-center bg-gradient-to-br from-violet-600 to-indigo-600 text-white py-20">
