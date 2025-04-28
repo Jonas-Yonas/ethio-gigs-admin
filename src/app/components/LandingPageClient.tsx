@@ -2,32 +2,11 @@
 
 import Link from "next/link";
 import { FaLightbulb, FaUserFriends, FaRocket } from "react-icons/fa";
-// import ThemeToggle from "./ThemeToggle";
 import ChatbotWidget from "./ChatBot";
-// import Navbar from "./Navbar";
 
 export default function LandingPageClient() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
-      {/* Navbar */}
-      {/* <Navbar /> */}
-      {/* <nav className="flex items-center justify-between px-8 py-4 bg-white shadow-md">
-        <div className="text-2xl font-bold text-violet-700">EthioGigs</div>
-        <div className="flex items-center space-x-4">
-          <Link href="/auth/signin">
-            <button className="text-violet-700 font-semibold hover:underline">
-              Sign In
-            </button>
-          </Link>
-          <Link href="/auth/signup">
-            <button className="bg-violet-600 text-white px-4 py-2 rounded-md hover:bg-violet-700 transition">
-              Get Started
-            </button>
-          </Link>
-          <ThemeToggle />
-        </div>
-      </nav> */}
-
       {/* Hero Section */}
       <header className="flex flex-col items-center justify-center flex-1 px-4 text-center bg-gradient-to-br from-violet-600 to-indigo-600 text-white py-20">
         <h1 className="text-5xl font-bold mb-4">Welcome to EthioGigs</h1>

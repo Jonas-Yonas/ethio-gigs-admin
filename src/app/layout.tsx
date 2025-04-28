@@ -38,8 +38,6 @@ export default function RootLayout({
             <ReactQueryProvider>
               <Toaster position="top-right" />
               <GigProvider>
-                {/* <Navbar />
-                {children} */}
                 <Navbar />
                 <main className="min-h-screen bg-gray-50">{children}</main>
               </GigProvider>
