@@ -34,7 +34,7 @@ export const GigProvider = ({ children }: { children: ReactNode }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
-  const [moderationFilter, setModerationFilter] = useState("all");
+  const [moderationFilter, setModerationFilter] = useState("All");
 
   return (
     <GigContext.Provider

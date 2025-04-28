@@ -1,17 +1,27 @@
-import { MongoClient, Db } from "mongodb";
+import { MongoClient } from "mongodb";
 
-const uri = process.env.MONGODB_URI!;
+const uri = process.env.MONGODB_URI;
 const options = {};
 
-let client: MongoClient;
-let db: Db;
+let client;
+let clientPromise: Promise<MongoClient>;
 
-export async function connectToDatabase(): Promise<Db> {
-  if (!client) {
-    client = new MongoClient(uri, options);
-    await client.connect(); // Will automatically connect.
-    db = client.db("ethiogigs"); // Make sure you're connected to the correct database.
-  }
-
-  return db;
+if (!process.env.MONGODB_URI) {
+  throw new Error("Please add your Mongo URI to .env.local");
 }
+
+if (process.env.NODE_ENV === "development") {
+  // In development mode, use a global variable so the connection
+  // is not recreated on every render
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri!, options);
+    global._mongoClientPromise = client.connect();
+  }
+  clientPromise = global._mongoClientPromise;
+} else {
+  // In production mode, create a new connection
+  client = new MongoClient(uri!, options);
+  clientPromise = client.connect();
+}
+
+export default clientPromise;

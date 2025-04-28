@@ -11,12 +11,12 @@ import { use } from "react";
 
 const GigDetailPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
-  const { id } = use(params); // Unwrap the Promise to access the id
+  const { id } = use(params);
 
   const { data, isLoading, isError } = useQuery<Gig | null, Error>({
     queryKey: ["gigDetails", id],
     queryFn: async () => {
-      const gig = await fetchGigById(id); // This might return null
+      const gig = await fetchGigById(id);
       if (!gig) throw new Error("Gig not found");
       return gig;
     },

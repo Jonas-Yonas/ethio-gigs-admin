@@ -20,3 +20,8 @@ export interface Gig {
   views?: number;
   moderationStatus: "Pending" | "Approved" | "Rejected";
 }
+
+export type GigsResponse = {
+  gigs: Gig[];
+  totalPages: number;
+};
